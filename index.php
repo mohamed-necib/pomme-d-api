@@ -21,14 +21,14 @@ $router = new Router($_GET['url']);
 
 
 $router->get('/', function () {
-    require_once 'src/view/home.php';
+    require_once 'src/View/home.php';
 });
 
 // Routes pour la Connexion/Inscription
 
 //Connexion
 $router->get('/login', function () {
-    require_once 'src/view/login.php';
+    require_once 'src/View/login.php';
 });
 $router->post(
     '/login',
@@ -36,7 +36,7 @@ $router->post(
         $auth = new AuthenticationController();
         $result = $auth->login($_POST['email'], $_POST['password']);
         //On require la vue login pour afficher le message
-        require_once 'src/view/login.php';
+        require_once 'src/View/login.php';
         if ($result['success']) {
             header('refresh:3;url=/pwd/');
         }
@@ -46,12 +46,12 @@ $router->post(
 
 //============================> INSCRIPTION
 $router->get('/register', function () {
-    require_once 'src/view/register.php';
+    require_once 'src/View/register.php';
 });
 $router->post('/register', function () {
     $auth = new AuthenticationController();
     $result = $auth->register($_POST['email'], $_POST['password'], $_POST['password_confirm'], $_POST['firstname'], $_POST['lastname']);
-    require_once 'src/view/register.php';
+    require_once 'src/View/register.php';
     if ($result['success']) {
         header('refresh:3;url=/pwd/login');
     }
@@ -73,7 +73,7 @@ $router->get('/profile', function () {
         $user = $_SESSION['user'];
     }
 
-    require_once 'src/view/profile.php';
+    require_once 'src/View/profile.php';
 });
 $router->post('/profile', function () {
     $auth = new AuthenticationController();
@@ -88,7 +88,7 @@ $router->post('/profile', function () {
         $result = $auth->updatePassword($_POST['oldPassword'], $_POST['newPassword'], $_POST['confirmPassword']);
         $user = $_SESSION['user'];
     }
-    require_once 'src/view/profile.php';
+    require_once 'src/View/profile.php';
 });
 
 
