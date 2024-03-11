@@ -1,0 +1,15 @@
+{
+  "name": "thomas/pomme-d-api",
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  },
+  "authors": [
+    {
+      "name": "thomas-spinec",
+      "email": "thomas.spinec@laplateforme.io"
+    }
+  ],
+  "require": {}
+}
