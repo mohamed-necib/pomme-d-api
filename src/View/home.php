@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,41 +9,19 @@
 </head>
 
 <body>
-  <?php 
-    require_once "header.php";
+  <?php
+  require_once "header.php";
   ?>
- 
-  <h1 class="counter">
-    0
-  </h1>
-  <div class="overlay">
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-    <div class="bar"></div>
-  </div>
 
 
 
-  <div class="header">
-    <div class="h1">M</div>
-    <div class="h1">L</div>
-    <div class="h1">M</div>
-    <div class="h1">V</div>
-    <div class="h1">C</div>
-    <div class="h1">.</div>
-  </div>
-  <div class="hero">
-    <img src="./assets/img/bg4.jpg" alt="">
-  </div>
+  <main>
+    <h1>Bienvenue sur notre site</h1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat neque dignissimos, perferendis commodi recusandae odio error nostrum tenetur? Voluptatem, quas sunt! Itaque fugiat dolorem consequuntur rem, eaque, repellendus explicabo porro culpa enim quam maxime asperiores maiores voluptates commodi? Maxime beatae explicabo adipisci, corporis reprehenderit porro reiciendis laboriosam aperiam harum voluptas cumque odit enim numquam eum et nobis quod vitae maiores. Modi saepe amet adipisci culpa soluta iusto quidem minus beatae non aspernatur, illum quos? Error nam animi dolores alias laborum quos, eos quasi odio quisquam est provident ipsa et blanditiis.
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    </p>
+  </main>
   <script src="./scripts/headerScript.js"></script>
 </body>
 
