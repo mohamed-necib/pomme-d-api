@@ -1,6 +1,6 @@
 import React from "react";
 
-function Register({ isRegister, changeForm }) {
+function Register({ changeForm }) {
   return (
     <div>
       <h1>Register</h1>
