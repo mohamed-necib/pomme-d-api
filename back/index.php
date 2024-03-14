@@ -61,15 +61,8 @@ $router->post('/register', function () {
 $router->get('/logout', function () {
     $auth = new AuthenticationController();
 
-    if (!$auth->isConnected()) {
-        echo json_encode([
-            'success' => false,
-            'message' => 'Vous n\'êtes pas connecté'
-        ]);
-    } else {
-        $res = $auth->logout();
-        echo json_encode($res);
-    }
+    $res = $auth->logout();
+    echo json_encode($res);
 });
 
 //============================> PROFIL
