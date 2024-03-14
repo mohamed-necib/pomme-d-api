@@ -12,7 +12,7 @@ function Register({ changeForm }) {
   const handleSubmit = (data) => {
     console.log("data", data);
     // userActions.register(data);
-    changeForm();
+    // changeForm();
   };
 
   return (

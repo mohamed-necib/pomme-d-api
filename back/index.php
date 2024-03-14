@@ -21,7 +21,6 @@ $router = new Router($_GET['url']);
 
 
 $router->get('/', function () {
-    require_once 'src/View/home.php';
 });
 
 // Routes pour la Connexion/Inscription
@@ -49,12 +48,13 @@ $router->get('/register', function () {
     require_once 'src/View/register.php';
 });
 $router->post('/register', function () {
-    $auth = new AuthenticationController();
-    $result = $auth->register($_POST['email'], $_POST['password'], $_POST['password_confirm'], $_POST['firstname'], $_POST['lastname']);
-    require_once 'src/View/register.php';
-    if ($result['success']) {
-        header('refresh:3;url=/pwd/login');
-    }
+    // $auth = new AuthenticationController();
+    // $result = $auth->register($_POST['email'], $_POST['password'], $_POST['password_confirm'], $_POST['firstname'], $_POST['lastname']);
+    // require_once 'src/View/register.php';
+    // if ($result['success']) {
+    //     header('refresh:3;url=/pwd/login');
+    // }
+    var_dump($_POST);
 });
 
 //============================> DECONNEXION
