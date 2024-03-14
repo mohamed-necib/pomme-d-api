@@ -37,12 +37,8 @@ $router->post(
     '/login',
     function () {
         $auth = new AuthenticationController();
-        $result = $auth->login($_POST['email'], $_POST['password']);
-        //On require la vue login pour afficher le message
-        require_once 'src/View/login.php';
-        if ($result['success']) {
-            header('refresh:3;url=/pwd/');
-        }
+        $result = $auth->login($_POST['pseudo'], $_POST['password']);
+        echo json_encode($result);
     }
 );
 
@@ -63,14 +59,24 @@ $router->post('/register', function () {
 
 //============================> DECONNEXION
 $router->get('/logout', function () {
-    require_once './logout.php';
+    $auth = new AuthenticationController();
+
+    if (!$auth->isConnected()) {
+        echo json_encode([
+            'success' => false,
+            'message' => 'Vous n\'êtes pas connecté'
+        ]);
+    } else {
+        $res = $auth->logout();
+        echo json_encode($res);
+    }
 });
 
 //============================> PROFIL
 $router->get('/profile', function () {
 
     $auth = new AuthenticationController();
-    if (!$auth->profile()) {
+    if (!$auth->isConnected()) {
         $message = "Vous n'êtes pas connecté vous allez être redirigé vers la page de connexion";
         header("refresh:3;url=/pwd/login");
     } else {

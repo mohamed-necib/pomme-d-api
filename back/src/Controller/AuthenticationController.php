@@ -63,7 +63,8 @@ class AuthenticationController
                 $_SESSION['user'] = $result;
                 return [
                     'success' => true,
-                    'message' => 'Vous êtes connecté'
+                    'message' => 'Vous êtes connecté',
+                    'id' => $result->getId(),
                 ];
             } else {
                 return [
@@ -79,7 +80,7 @@ class AuthenticationController
         }
     }
 
-    public function profile()
+    public function isConnected()
     {
         if (!isset($_SESSION['user'])) {
             return false;
@@ -181,6 +182,6 @@ class AuthenticationController
     public function logout()
     {
         session_destroy();
-        header('Location: /pwd/login');
+        return true;
     }
 }

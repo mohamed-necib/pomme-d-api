@@ -65,9 +65,9 @@ function Register({ changeForm }) {
         />
       </form>
       {response?.success ? (
-        <p>{response.message}</p>
+        <p style={{ color: "green" }}>{response.message}</p>
       ) : (
-        <p>{response.message}</p>
+        <p style={{ color: "red" }}>{response.message}</p>
       )}
       <p>
         Already have an account? <span onClick={changeForm}>Login</span>
