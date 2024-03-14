@@ -4,7 +4,7 @@ export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
-    login: null,
+    pseudo: null,
     id_user: null,
   });
   const [connected, setConnected] = useState(false);
@@ -34,9 +34,8 @@ const UserProvider = ({ children }) => {
   const handleLogout = () => {
     setUser(null);
     setConnected(false);
-    localStorage.removeItem("login");
-    localStorage.removeItem("id_user");
-    localStorage.removeItem("solde");
+    localStorage.removeItem("pseudo");
+    localStorage.removeItem("id");
   };
 
   // useEffect(() => {
@@ -46,6 +45,27 @@ const UserProvider = ({ children }) => {
   //     setData({});
   //   }
   // }, [user]);
+
+  useEffect(() => {
+    if (user && user.pseudo && user.id) {
+      localStorage.setItem("pseudo", user.pseudo);
+      localStorage.setItem("id", user.id);
+    } else if (localStorage.getItem("pseudo")) {
+      setUser({
+        pseudo: localStorage.getItem("pseudo"),
+        id: localStorage.getItem("id"),
+      });
+      setConnected(true);
+    }
+  }, [user]);
+
+  useEffect(() => {
+    console.log("user", user);
+  }, [user]);
+
+  useEffect(() => {
+    console.log("connected", connected);
+  }, [connected]);
 
   // si l'utilisateur est en localstorage, on le connecte automatiquement
   // useEffect(() => {
