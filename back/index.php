@@ -1,4 +1,8 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+
 require_once './vendor/autoload.php';
 session_start();
 
@@ -48,13 +52,13 @@ $router->get('/register', function () {
     require_once 'src/View/register.php';
 });
 $router->post('/register', function () {
-    // $auth = new AuthenticationController();
-    // $result = $auth->register($_POST['email'], $_POST['password'], $_POST['password_confirm'], $_POST['firstname'], $_POST['lastname']);
-    // require_once 'src/View/register.php';
-    // if ($result['success']) {
-    //     header('refresh:3;url=/pwd/login');
-    // }
-    var_dump($_POST);
+    $auth = new AuthenticationController();
+    $result = $auth->register($_POST['pseudo'], $_POST['password'], $_POST['confirmPassword']);
+
+    echo json_encode($result);
+
+
+    // var_dump($_POST);
 });
 
 //============================> DECONNEXION

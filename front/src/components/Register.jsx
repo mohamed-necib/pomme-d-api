@@ -9,10 +9,22 @@ function Register({ changeForm }) {
     confirmPassword: "",
   });
 
-  const handleSubmit = (data) => {
-    console.log("data", data);
-    // userActions.register(data);
-    // changeForm();
+  const [response, setResponse] = useState({});
+
+  const handleSubmit = async (data) => {
+    let formData = new FormData();
+    formData.append("pseudo", data.username);
+    formData.append("password", data.password);
+    formData.append("confirmPassword", data.confirmPassword);
+
+    const res = await userActions.register(formData);
+    setResponse(res);
+    if (res.success) {
+      setTimeout(() => {
+        setResponse({});
+        changeForm();
+      }, 1500);
+    }
   };
 
   return (
@@ -52,6 +64,11 @@ function Register({ changeForm }) {
           }}
         />
       </form>
+      {response?.success ? (
+        <p>{response.message}</p>
+      ) : (
+        <p>{response.message}</p>
+      )}
       <p>
         Already have an account? <span onClick={changeForm}>Login</span>
       </p>

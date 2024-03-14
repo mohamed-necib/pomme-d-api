@@ -15,7 +15,7 @@ class Database
 
   public function __construct()
   {
-    $this->dbname = 'draft-shop';
+    $this->dbname = 'pomme-d-api';
     $this->host = 'localhost';
     $this->dbuser = 'root';
     $this->password = '';
