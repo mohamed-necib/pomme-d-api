@@ -7,14 +7,10 @@ use App\Model\User;
 class AuthenticationController
 {
 
-    public function register($email, $password, $confPassword, $firstname, $lastname)
+    public function register($pseudo, $password, $confirmPassword)
     {
-        if (isset($email) && isset($password) && isset($confPassword) && isset($firstname) && isset($lastname)) {
-            $email = htmlspecialchars($email);
-            $firstname = htmlspecialchars($firstname);
-            $lastname = htmlspecialchars($lastname);
-            $fullname = $firstname . ' ' . $lastname;
-
+        if (isset($pseudo) && isset($password) && isset($confirmPassword)) {
+            $pseudo = htmlspecialchars($pseudo);
         } else {
             return [
                 'success' => false,
@@ -22,7 +18,7 @@ class AuthenticationController
             ];
         }
 
-        if ($password !== $confPassword) {
+        if ($password !== $confirmPassword) {
             return [
                 'success' => false,
                 'message' => 'Les mots de passe ne correspondent pas'
@@ -30,19 +26,17 @@ class AuthenticationController
         }
 
         $user = new User();
-        $result = $user->findOneByEmail($email);
+        $result = $user->findOneByPseudo($pseudo);
 
         if ($result) {
 
             return [
                 'success' => false,
-                'message' => 'Cet email est déjà utilisé'
+                'message' => 'Ce pseudo est déjà utilisé'
             ];
         } else {
-            $user->setEmail($email);
-            $user->setFullname($fullname);
+            $user->setPseudo($pseudo);
             $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
-            $user->setRole(['ROLE_USER']);
             $user->create();
             return [
                 'success' => true,
@@ -51,10 +45,10 @@ class AuthenticationController
         }
     }
 
-    public function login($email, $password)
+    public function login($pseudo, $password)
     {
-        if (isset($email) && isset($password)) {
-            $email = htmlspecialchars($email);
+        if (isset($pseudo) && isset($password)) {
+            $pseudo = htmlspecialchars($pseudo);
         } else {
             return [
                 'success' => false,
@@ -63,13 +57,14 @@ class AuthenticationController
         }
 
         $user = new User();
-        $result = $user->findOneByEmail($email);
+        $result = $user->findOneByPseudo($pseudo);
         if ($result) {
             if (password_verify($password, $result->getPassword())) {
                 $_SESSION['user'] = $result;
                 return [
                     'success' => true,
-                    'message' => 'Vous êtes connecté'
+                    'message' => 'Vous êtes connecté',
+                    'id' => $result->getId(),
                 ];
             } else {
                 return [
@@ -85,7 +80,7 @@ class AuthenticationController
         }
     }
 
-    public function profile()
+    public function isConnected()
     {
         if (!isset($_SESSION['user'])) {
             return false;
@@ -94,11 +89,10 @@ class AuthenticationController
         }
     }
 
-    public function update($email, $password, $fullname)
+    public function update($pseudo, $password)
     {
-        if (isset($email) && isset($password) && isset($fullname)) {
-            $email = htmlspecialchars($email);
-            $fullname = htmlspecialchars($fullname);
+        if (isset($pseudo) && isset($password)) {
+            $pseudo = htmlspecialchars($pseudo);
         } else {
             return [
                 'success' => false,
@@ -106,11 +100,11 @@ class AuthenticationController
             ];
         }
 
-        $user = new User($_SESSION['user']->getId(), $_SESSION['user']->getFullname(), $_SESSION['user']->getEmail(), $_SESSION['user']->getPassword(), $_SESSION['user']->getRole());
+        $user = new User($_SESSION['user']->getId(), $_SESSION['user']->getPseudo(), $_SESSION['user']->getPassword());
 
-        if ($email === $_SESSION['user']->getEmail()) {
+        if ($pseudo === $_SESSION['user']->getPseudo()) {
             if (password_verify($password, $_SESSION['user']->getPassword())) {
-                $user->setFullname($fullname);
+                $user->setPseudo($pseudo);
                 $user->update();
                 $_SESSION['user'] = $user;
                 return [
@@ -125,7 +119,7 @@ class AuthenticationController
                 ];
             }
         } else {
-            $result = $user->findOneByEmail($email);
+            $result = $user->findOneByPseudo($pseudo);
             if ($result) {
                 return [
                     'success' => false,
@@ -134,8 +128,7 @@ class AuthenticationController
             } else {
 
                 if (password_verify($password, $_SESSION['user']->getPassword())) {
-                    $user->setEmail($email);
-                    $user->setFullname($fullname);
+                    $user->setPseudo($pseudo);
                     $user->update();
                     $_SESSION['user'] = $user;
                     return [
@@ -170,7 +163,7 @@ class AuthenticationController
         }
 
         if (password_verify($old, $_SESSION['user']->getPassword())) {
-            $user = new User($_SESSION['user']->getId(), $_SESSION['user']->getFullname(), $_SESSION['user']->getEmail(), $_SESSION['user']->getPassword(), $_SESSION['user']->getRole());
+            $user = new User($_SESSION['user']->getId(), $_SESSION['user']->getPseudo(), $_SESSION['user']->getPassword());
             $user->setPassword(password_hash($new, PASSWORD_DEFAULT));
             $user->update();
             $_SESSION['user'] = $user;
@@ -189,6 +182,6 @@ class AuthenticationController
     public function logout()
     {
         session_destroy();
-        header('Location: /pwd/login');
+        return true;
     }
 }

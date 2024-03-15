@@ -1,4 +1,8 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
+
 require_once './vendor/autoload.php';
 session_start();
 
@@ -33,12 +37,8 @@ $router->post(
     '/login',
     function () {
         $auth = new AuthenticationController();
-        $result = $auth->login($_POST['email'], $_POST['password']);
-        //On require la vue login pour afficher le message
-        require_once 'src/View/login.php';
-        if ($result['success']) {
-            header('refresh:3;url=/pwd/');
-        }
+        $result = $auth->login($_POST['pseudo'], $_POST['password']);
+        echo json_encode($result);
     }
 );
 
@@ -48,25 +48,28 @@ $router->get('/register', function () {
     require_once 'src/View/register.php';
 });
 $router->post('/register', function () {
-    // $auth = new AuthenticationController();
-    // $result = $auth->register($_POST['email'], $_POST['password'], $_POST['password_confirm'], $_POST['firstname'], $_POST['lastname']);
-    // require_once 'src/View/register.php';
-    // if ($result['success']) {
-    //     header('refresh:3;url=/pwd/login');
-    // }
-    var_dump($_POST);
+    $auth = new AuthenticationController();
+    $result = $auth->register($_POST['pseudo'], $_POST['password'], $_POST['confirmPassword']);
+
+    echo json_encode($result);
+
+
+    // var_dump($_POST);
 });
 
 //============================> DECONNEXION
 $router->get('/logout', function () {
-    require_once './logout.php';
+    $auth = new AuthenticationController();
+
+    $res = $auth->logout();
+    echo json_encode($res);
 });
 
 //============================> PROFIL
 $router->get('/profile', function () {
 
     $auth = new AuthenticationController();
-    if (!$auth->profile()) {
+    if (!$auth->isConnected()) {
         $message = "Vous n'êtes pas connecté vous allez être redirigé vers la page de connexion";
         header("refresh:3;url=/pwd/login");
     } else {

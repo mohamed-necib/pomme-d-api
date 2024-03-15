@@ -31,7 +31,7 @@ export const userActions = {
   async logout() {
     try {
       const response = await fetch(`${PATH}/logout`, {
-        method: "POST",
+        method: "GET",
       });
       const res = await response.json();
       return res;
