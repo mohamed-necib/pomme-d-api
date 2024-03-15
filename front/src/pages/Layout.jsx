@@ -22,10 +22,10 @@ const Layout = () => {
             <li>
               <Link to="/authentication">Register/connection</Link>
             </li>
+          )}
           <li>
             <Link to="/products">Products</Link>
           </li>
-          )}
         </ul>
       </nav>
 
