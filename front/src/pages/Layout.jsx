@@ -15,9 +15,17 @@ const Layout = () => {
             <Link to="/">Home</Link>
           </li>
           {connected ? (
-            <li>
-              <Link to="/account">Account</Link>
-            </li>
+            <>
+              <li>
+                <Link to="/daily">Daily</Link>
+              </li>
+              <li>
+                <Link to="/account">Account</Link>
+              </li>
+              <li>
+                <Link to="/favorites">Favorites</Link>
+              </li>
+            </>
           ) : (
             <li>
               <Link to="/authentication">Register/connection</Link>

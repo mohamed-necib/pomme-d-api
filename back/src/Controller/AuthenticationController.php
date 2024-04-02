@@ -64,7 +64,7 @@ class AuthenticationController
                 return [
                     'success' => true,
                     'message' => 'Vous êtes connecté',
-                    'id' => $result->getId(),
+                    'id' => $result->getId()
                 ];
             } else {
                 return [
