@@ -71,93 +71,91 @@ $router->get('/logout', function () {
 //============================> Favorites
 $router->get('/favorites', function () {
     $auth = new AuthenticationController();
-    if (!$auth->isConnected()) {
-        $res = [
-            'success' => false,
-            'message' => 'Vous devez être connecté pour accéder à vos favoris'
-        ];
-        echo json_encode($res);
-    } else {
-        $fav = new FavoriteController();
-        $favorites = $fav->getFavorites();
-        echo json_encode($favorites);
-    }
+    // if (!$auth->isConnected()) {
+    //     $res = [
+    //         'success' => false,
+    //         'message' => 'Vous devez être connecté pour accéder à vos favoris'
+    //     ];
+    //     echo json_encode($res);
+    // }
+    $fav = new FavoriteController();
+    $favorites = $fav->getFavorites();
+    echo json_encode($favorites);
 });
 
 $router->post('/favorites/add', function () {
     $auth = new AuthenticationController();
-    if (!$auth->isConnected()) {
-        $res = [
-            'success' => false,
-            'message' => 'Vous devez être connecté pour ajouter une recette à vos favoris'
-        ];
-        echo json_encode($res);
-    } else {
-        $fav = new FavoriteController();
-        $result = $fav->add($_POST['id']);
-        echo json_encode($result);
-    }
+    // if (!$auth->isConnected()) {
+    //     $res = [
+    //         'success' => false,
+    //         'message' => 'Vous devez être connecté pour ajouter une recette à vos favoris',
+    //         'user' => $_SESSION
+    //     ];
+    //     echo json_encode($res);
+    // }
+
+    $fav = new FavoriteController();
+    $result = $fav->add($_POST['id'], $_POST["user_id"]);
+    echo json_encode($result);
 });
 
 $router->post('/favorites/remove', function () {
     $auth = new AuthenticationController();
-    if (!$auth->isConnected()) {
-        $res = [
-            'success' => false,
-            'message' => 'Vous devez être connecté pour retirer une recette de vos favoris'
-        ];
-        echo json_encode($res);
-    } else {
-        $fav = new FavoriteController();
-        $result = $fav->remove($_POST['id']);
-        echo json_encode($result);
-    }
+    // if (!$auth->isConnected()) {
+    //     $res = [
+    //         'success' => false,
+    //         'message' => 'Vous devez être connecté pour retirer une recette de vos favoris'
+    //     ];
+    //     echo json_encode($res);
+    // }
+
+    $fav = new FavoriteController();
+    $result = $fav->remove($_POST['id']);
+    echo json_encode($result);
 });
 
 //============================> Daily
 $router->get('/daily', function () {
     $auth = new AuthenticationController();
-    if (!$auth->isConnected()) {
-        $res = [
-            'success' => false,
-            'message' => 'Vous devez être connecté pour accéder à votre consommation du jour'
-        ];
-        echo json_encode($res);
-    } else {
-        $daily = new DailyController();
-        $dailys = $daily->getDailys();
-        echo json_encode($dailys);
-    }
+    // if (!$auth->isConnected()) {
+    //     $res = [
+    //         'success' => false,
+    //         'message' => 'Vous devez être connecté pour accéder à votre consommation du jour'
+    //     ];
+    //     echo json_encode($res);
+    // } 
+    $daily = new DailyController();
+    $dailys = $daily->getDailys();
+    echo json_encode($dailys);
 });
 
 $router->post('/daily/add', function () {
     $auth = new AuthenticationController();
-    if (!$auth->isConnected()) {
-        $res = [
-            'success' => false,
-            'message' => 'Vous devez être connecté pour ajouter un produit à votre consommation du jour'
-        ];
-        echo json_encode($res);
-    } else {
-        $daily = new DailyController();
-        $result = $daily->add($_POST['id']);
-        echo json_encode($result);
-    }
+    // if (!$auth->isConnected()) {
+    //     $res = [
+    //         'success' => false,
+    //         'message' => 'Vous devez être connecté pour ajouter un produit à votre consommation du jour'
+    //     ];
+    //     echo json_encode($res);
+    // } 
+    $daily = new DailyController();
+    $result = $daily->add($_POST['id']);
+    echo json_encode($result);
 });
 
 $router->post('/daily/remove', function () {
     $auth = new AuthenticationController();
-    if (!$auth->isConnected()) {
-        $res = [
-            'success' => false,
-            'message' => 'Vous devez être connecté pour retirer un produit de votre consommation du jour'
-        ];
-        echo json_encode($res);
-    } else {
-        $daily = new DailyController();
-        $result = $daily->remove($_POST['id']);
-        echo json_encode($result);
-    }
+    // if (!$auth->isConnected()) {
+    //     $res = [
+    //         'success' => false,
+    //         'message' => 'Vous devez être connecté pour retirer un produit de votre consommation du jour'
+    //     ];
+    //     echo json_encode($res);
+    // } 
+
+    $daily = new DailyController();
+    $result = $daily->remove($_POST['id']);
+    echo json_encode($result);
 });
 
 

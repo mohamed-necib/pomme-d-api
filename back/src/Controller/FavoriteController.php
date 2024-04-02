@@ -6,10 +6,10 @@ use App\Model\Favorite;
 
 class FavoriteController
 {
-    public function add($id)
+    public function add($id, $user_id)
     {
         $favorite = new Favorite();
-        $favorite->setUserId($_SESSION['user']['id']);
+        $favorite->setUserId($user_id);
         $favorite->setProductCode($id);
         $favorite->create();
         return [

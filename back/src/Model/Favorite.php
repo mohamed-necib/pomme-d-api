@@ -75,7 +75,7 @@ class Favorite
 
     public function create()
     {
-        $query = $this->getPdo()->prepare('INSERT INTO favoris (user_id, product_code) VALUES (:user_id, :product_code)');
+        $query = $this->getPdo()->prepare('INSERT INTO favoris (id_user, product_code) VALUES (:user_id, :product_code)');
         $query->execute([
             'user_id' => $this->getUserId(),
             'product_code' => $this->getProductCode()
@@ -84,7 +84,7 @@ class Favorite
 
     public function delete()
     {
-        $query = $this->getPdo()->prepare('DELETE FROM favoris WHERE user_id = :user_id AND product_code = :product_code');
+        $query = $this->getPdo()->prepare('DELETE FROM favoris WHERE id_user = :user_id AND product_code = :product_code');
         $query->execute([
             'user_id' => $this->getUserId(),
             'product_code' => $this->getProductCode()

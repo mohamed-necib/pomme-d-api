@@ -7,6 +7,8 @@ import NoPage from "./pages/NoPage";
 import Authentication from "./pages/Authentication";
 import Products from "./pages/Products";
 import Product from "./pages/Product";
+import Favorites from "./pages/Favorites";
+import Daily from "./pages/Daily";
 import "./App.css";
 
 function App() {
@@ -18,6 +20,8 @@ function App() {
           <Route path="authentication" element={<Authentication />} />
           <Route path="products" element={<Products />} />
           <Route path="product/:id" element={<Product />} />
+          <Route path="favorites" element={<Favorites />} />
+          <Route path="daily" element={<Daily />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
