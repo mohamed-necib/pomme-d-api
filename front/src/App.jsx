@@ -5,6 +5,9 @@ import Layout from "./pages/Layout";
 import Home from "./pages/Home";
 import NoPage from "./pages/NoPage";
 import Authentication from "./pages/Authentication";
+import Products from "./pages/Products";
+import Product from "./pages/Product";
+import "./App.css";
 
 function App() {
   return (
@@ -13,6 +16,8 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="authentication" element={<Authentication />} />
+          <Route path="products" element={<Products />} />
+          <Route path="product/:id" element={<Product />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
